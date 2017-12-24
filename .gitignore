@@ -1,0 +1,5 @@
+*.o
+*.log
+os.iso
+kernel.elf
+img/*
