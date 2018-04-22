@@ -3,7 +3,9 @@ FROM ubuntu:xenial
 # Deps
 RUN apt-get update; apt-get install -y \
   # Some basic dev/build tools
-  build-essential nasm bison flex curl gdb \
+  less build-essential nasm bison flex curl gdb \
+  # for hexdump
+  bsdmainutils \
   # Used by grub-mkrescue to create ISOs
   xorriso
 
