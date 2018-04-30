@@ -5,8 +5,8 @@ SECTIONS {
 
     .text ALIGN (0x1000) :   /* align at 4 KB */
     {
-        loader.o(.text)
-        *(EXCLUDE_FILE (loader.o) .text)             /* all text sections from all files */
+        *(.multiboot)
+        *(.text)
     }
 
     .rodata ALIGN (0x1000) : /* align at 4 KB */
