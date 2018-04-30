@@ -3,6 +3,6 @@
 
 void serial_init();
 
-void serial_write(char *text, unsigned int len);
+void serial_write(char *text);
 
 #endif /* INCLUDE_SERIAL_H */

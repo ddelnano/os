@@ -1,9 +1,9 @@
 #include "io.h"
-#include "util.h"
 #include "fb.h"
 #include "serial.h"
 #include "gdt.h"
 #include "idt.h"
+#include "libc.h"
 #include "timer.h"
 
 /* The C function */
@@ -23,10 +23,8 @@ void fb_write_cell()
     fb[5] = 0xf0;
 }
 
-char text[] = "Hello";
 void hello()
 {
-    unsigned int len = strlen(text);
     /* for (int i = 0; i < 401; i++) { */
     /*     fb_write(text, len); */
     /* } */
@@ -36,7 +34,7 @@ void hello()
     idt_init();
     asm volatile("sti");
     timer_init(50); // Initialise timer to 50Hz
-    serial_write(text, len);
+    serial_write("Hello");
     /* asm volatile ("int $0x1"); */
     /* asm volatile ("int $0x2"); */
 }

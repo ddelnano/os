@@ -1,4 +1,5 @@
 #include "serial.h"
+#include "libc.h"
 #include "io.h"
 
 #define PORT 0x3f8 // COM1
@@ -27,8 +28,9 @@ int serial_transmit_empty()
     return inb(PORT + 5) & 0x20;
 }
 
-void serial_write(char *text, unsigned int len)
+void serial_write(char *text)
 {
+    unsigned int len = strlen(text);
     for (unsigned int i = 0; i < len; i++) {
         while (serial_transmit_empty() == 0);
         outb(PORT, text[i]);

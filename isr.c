@@ -1,8 +1,8 @@
 #include "isr.h"
 #include "io.h"
 #include "pic.h"
+#include "libc.h"
 #include "serial.h"
-#include "util.h"
 
 isr_t interrupt_handlers[256];
 
@@ -11,8 +11,7 @@ isr_t interrupt_handlers[256];
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void isr_handler(registers_t registers)
 {
-    char c[] = "A";
-    serial_write(c, 1);
+    serial_write("A");
 }
 #pragma GCC diagnostic pop
 
@@ -24,8 +23,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
 // This gets called from our ASM interrupt handler stub.
 void irq_handler(registers_t regs)
 {
-    char notice[] = "Received interrupt";
-    serial_write(notice, strlen(notice));
+    serial_write("Received interrupt");
    // Send an EOI (end of interrupt) signal to the PICs.
    // If this interrupt involved the slave.
    if (regs.int_no >= 40)
