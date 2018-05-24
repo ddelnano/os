@@ -23,7 +23,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
 // This gets called from our ASM interrupt handler stub.
 void irq_handler(registers_t regs)
 {
-    serial_write("Received interrupt");
+    /* serial_write("Received interrupt"); */
    // Send an EOI (end of interrupt) signal to the PICs.
    // If this interrupt involved the slave.
    if (regs.int_no >= 40)

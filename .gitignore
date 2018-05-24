@@ -1,5 +1,6 @@
 *.o
 *.log
 os.iso
-kernel.elf
+**/*.elf
 img/*
+.vagrant/

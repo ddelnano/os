@@ -6,14 +6,19 @@
 #include "libc.h"
 #include "system.h"
 
-uint32_t tick = 0;
+#define SUBTICKS_PER_TICK 1000
+
+uint32_t timer_ticks = 0;
+uint32_t timer_subticks = 0;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 static void timer_callback(registers_t reg)
 {
-    tick++;
-    serial_write("Tick: ");
+    if (++timer_subticks == SUBTICKS_PER_TICK) {
+        timer_subticks = 0;
+        timer_ticks++;
+    }
 }
 #pragma GCC diagnostic pop
 
