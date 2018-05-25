@@ -36,20 +36,6 @@ int main()
     idt_init();
     asm volatile("sti");
     timer_init(1000); // Initialise timer to 50Hz
-    serial_write("Hello\n");
-    /* asm volatile ("int $0x1"); */
-    /* asm volatile ("int $0x2"); */
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    char buf[100];
-    /* vasprintf(buf, sizeof buf / sizeof(buf[0]), "This number is\n"); */
-    /* serial_write(buf); */
-    /* /1* vasprintf(buf, "The next number is %d\n", 150); *1/ */
-    /* /1* serial_write(buf); *1/ */
-    /* vasprintf(buf, sizeof buf / sizeof(buf[0]), "The next number %s\n", "testasdfasdfds"); */
-    /* serial_write(buf); */
-    vasprintf(buf, sizeof buf / sizeof(buf[0]), "Current %d  time is: %d  \n", 2500, 150);
-    serial_write(buf);
     return 0;
 }
 

@@ -2,10 +2,6 @@ global outb
 global inb
 global print
 
-section .data
-msg db  'Hello, world! asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',0xa ;our dear string
-len equ $ - msg         ;length of our dear string
-
 outb:
     mov al, [esp + 8]
     mov dx, [esp + 4]

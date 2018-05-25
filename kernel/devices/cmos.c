@@ -101,6 +101,10 @@ void cmos_dump(uint16_t *values)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 // TODO: Change tz to correct pointer
+
+// This also needs to be validated that it works.
+// Having issues because I think output buffering is
+// causing the logs to appear to be delayed.
 int gettimeofday(struct timeval *tv, void *tz)
 {
     tv->tv_sec = boot_time + timer_ticks;
@@ -147,7 +151,8 @@ uint32_t read_cmos()
                 bcd2dec(values[CMOS_YEAR])) +
         secs_of_years(bcd2dec(values[CMOS_YEAR]) - 1);
 
-    vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "seconds: %d  mins: %d  hour: %d  day: %d month: %d  year: %d  unixtime: %d \n", bcd2dec(values[CMOS_SECOND]), bcd2dec(values[CMOS_MINUTE]), bcd2dec(values[CMOS_HOUR]), bcd2dec(values[CMOS_DAY_MONTH]), bcd2dec(values[CMOS_MONTH]), bcd2dec(values[CMOS_YEAR]), time);
+    vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "Booting at seconds: %d  mins: %d  hour: %d  day: %d month: %d  year: %d  unixtime: %d \n", bcd2dec(values[CMOS_SECOND]), bcd2dec(values[CMOS_MINUTE]), bcd2dec(values[CMOS_HOUR]), bcd2dec(values[CMOS_DAY_MONTH]), bcd2dec(values[CMOS_MONTH]), bcd2dec(values[CMOS_YEAR]), time);
+    serial_write(buf);
 
     return 0;
 }
