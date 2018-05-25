@@ -48,8 +48,7 @@ int test_secs_of_year_2018()
 int test_vasprintf_with_numbers()
 {
     char expected[] = "1527125201 1527125201";
-    uint32_t len = strlen(expected);
-    char buf[len];
+    char buf[1000];
     vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "%d %d", 1527125201, 1527125201);
     return strcmp(buf, expected);
 }
@@ -57,10 +56,8 @@ int test_vasprintf_with_numbers()
 int test_vasprintf_escapes_percent_signs()
 {
     char expected[] = "%";
-    uint32_t len = strlen(expected);
-    char buf[len];
+    char buf[1000];
     vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "%%");
-    print(buf, strlen(buf));
     return strcmp(buf, expected);
 }
 
