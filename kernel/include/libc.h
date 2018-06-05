@@ -1,5 +1,9 @@
 #include "types.h"
+#include "va_list.h"
 
-extern void * memcpy(void * dest, const void * src, size_t n);
+void * memcpy(void * dest, const void * src, size_t n);
 
-unsigned int strlen(char *s);
+unsigned int strlen(const char *s);
+size_t vasprintf(char * buf, size_t size, char * fmt, ...);
+
+int strcmp(const char * l, const char * r);

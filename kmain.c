@@ -5,6 +5,7 @@
 #include "idt.h"
 #include "libc.h"
 #include "timer.h"
+#include "cmos.h"
 
 /* The C function */
 int sum_of_three(int arg1, int arg2, int arg3)
@@ -23,19 +24,14 @@ void fb_write_cell()
     fb[5] = 0xf0;
 }
 
-void hello()
+int main()
 {
-    /* for (int i = 0; i < 401; i++) { */
-    /*     fb_write(text, len); */
-    /* } */
-
     serial_init();
+    serial_write("Booting the OS\n");
     gdt_init();
     idt_init();
     asm volatile("sti");
-    timer_init(50); // Initialise timer to 50Hz
-    serial_write("Hello");
-    /* asm volatile ("int $0x1"); */
-    /* asm volatile ("int $0x2"); */
+    timer_init(1000); // Initialise timer to 50Hz
+    return 0;
 }
 

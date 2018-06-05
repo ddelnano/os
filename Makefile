@@ -12,6 +12,8 @@ KERNEL_OBJS = $(patsubst %.c,%.o,$(wildcard kernel/*.c))
 KERNEL_OBJS += $(patsubst %.s,%.o,$(wildcard *.s))
 KERNEL_OBJS += $(patsubst %.c,%.o,$(wildcard *.c))
 KERNEL_OBJS += $(patsubst %.c,%.o,$(wildcard kernel/devices/*.c))
+TEST_OBJS = $(patsubst %.c,%.o,$(wildcard tests/*.c))
+TEST_OBJS += $(patsubst %.s,%.o,$(wildcard tests/*.s))
 
 all: os.iso
 
@@ -33,4 +35,10 @@ kernel.elf: $(KERNEL_OBJS)
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o img os.iso
+	rm -rf **.o img os.iso
+
+test: $(TEST_OBJS) $(KERNEL_OBJS)
+	ld -melf_i386 $(KERNEL_OBJS) $(TEST_OBJS) -o tests/test.elf
+	qemu-i386-static tests/test.elf | tappy
+
+

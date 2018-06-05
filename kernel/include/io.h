@@ -1,3 +1,5 @@
+#include "types.h"
+
 #ifndef INCLUDE_IO_H
 #define INCLUDE_IO_H
 
@@ -16,5 +18,17 @@ void outb(unsigned short port, unsigned char data);
  *  @return      The read byte
  */
 unsigned char inb(unsigned short port);
+
+/** print:
+ *  Used for testing purposes in qemu user mode only!
+ *  The OS does not have a 'stdout' just yet, but running
+ *  code in qemu user mode means we can use linux syscalls.
+ *  This is used for debugging for now.
+ *
+ *  @param  string you want to print to stdout
+ *  @param  length of the string
+ *  @return void
+ */
+void print(char* message, unsigned short len);
 
 #endif /* INCLUDE_IO_H */

@@ -6,14 +6,34 @@
 #include "libc.h"
 #include "system.h"
 
-uint32_t tick = 0;
+#define SUBTICKS_PER_TICK 1000
+#define RESYNC_TIME 1
+
+static int behind = 0;
+
+/*
+ * Internal timer counters
+ */
+unsigned long timer_ticks = 0;
+unsigned long timer_subticks = 0;
+signed long timer_drift = 0;
+signed long _timer_drift = 0;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+// This algorithm was taken from toaruos https://gitlab.com/toaruos/toaruos
 static void timer_callback(registers_t reg)
 {
-    tick++;
-    serial_write("Tick: ");
+    if (++timer_subticks == SUBTICKS_PER_TICK || (behind && ++timer_subticks == SUBTICKS_PER_TICK)) {
+        timer_ticks++;
+        timer_subticks = 0;
+        if (timer_ticks % RESYNC_TIME == 0) {
+            uint32_t new_time = read_cmos();
+            _timer_drift = new_time - boot_time - timer_ticks;
+            if (_timer_drift > 0) behind = 1;
+            else behind = 0;
+        }
+    }
 }
 #pragma GCC diagnostic pop
 

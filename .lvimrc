@@ -1,6 +1,6 @@
 let g:neomake_c_enabled_makers = ['gcc']
 let g:neomake_gcc_maker = {
     \ 'exe': '/usr/bin/gcc',
-    \ 'args': ['-m32', '-nostdlib', '-nostdinc', '-fno-builtin', '-fno-stack-protector', '-nodefaultlibs', '-Wall', '-Wextra', '-Werror', '-c', '-ggdb', '-Ikernel/include'],
+    \ 'args': ['-m32', '-nostdlib', '-nostdinc', '-fno-builtin', '-fno-stack-protector', '-nodefaultlibs', '-Wall', '-Wextra', '-Werror', '-c', '-ggdb', '-Ikernel/include', '-o /dev/null'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
