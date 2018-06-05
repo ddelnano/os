@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-	 -nostartfiles -nodefaultlibs -Wall -Wextra -c -ggdb \
+	 -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -ggdb \
 	 -I kernel/include
 LDFLAGS = -T link.ld -melf_i386
 AS = nasm
