@@ -3,7 +3,5 @@
 
 #include "types.h"
 extern uint32_t boot_time;
-extern uint32_t timer_ticks;
-extern uint32_t timer_subticks;
 
 #endif

@@ -26,10 +26,6 @@ void fb_write_cell()
 
 int main()
 {
-    /* for (int i = 0; i < 401; i++) { */
-    /*     fb_write(text, len); */
-    /* } */
-
     serial_init();
     serial_write("Booting the OS\n");
     gdt_init();
