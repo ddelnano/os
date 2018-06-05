@@ -154,7 +154,7 @@ uint32_t read_cmos()
     vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "Booting at seconds: %d  mins: %d  hour: %d  day: %d month: %d  year: %d  unixtime: %d \n", bcd2dec(values[CMOS_SECOND]), bcd2dec(values[CMOS_MINUTE]), bcd2dec(values[CMOS_HOUR]), bcd2dec(values[CMOS_DAY_MONTH]), bcd2dec(values[CMOS_MONTH]), bcd2dec(values[CMOS_YEAR]), time);
     serial_write(buf);
 
-    return 0;
+    return time;
 }
 
 uint32_t get_timestamp_from_cmos_registers(
