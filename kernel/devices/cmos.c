@@ -140,9 +140,6 @@ uint32_t read_cmos()
         values[CMOS_MONTH] != old_values[CMOS_MONTH] ||
         values[CMOS_YEAR] != old_values[CMOS_YEAR]
     );
-    serial_write("done updating cmos\n");
-    char buf[1000];
-    serial_write(buf);
     uint32_t time = bcd2dec(values[CMOS_SECOND]) +
         bcd2dec(values[CMOS_MINUTE]) * 60 +
         bcd2dec(values[CMOS_HOUR] + TZ_OFFSET) * 60 * 60 +
@@ -150,9 +147,6 @@ uint32_t read_cmos()
         secs_of_month(bcd2dec(values[CMOS_MONTH]) - 1,
                 bcd2dec(values[CMOS_YEAR])) +
         secs_of_years(bcd2dec(values[CMOS_YEAR]) - 1);
-
-    vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "Booting at seconds: %d  mins: %d  hour: %d  day: %d month: %d  year: %d  unixtime: %d \n", bcd2dec(values[CMOS_SECOND]), bcd2dec(values[CMOS_MINUTE]), bcd2dec(values[CMOS_HOUR]), bcd2dec(values[CMOS_DAY_MONTH]), bcd2dec(values[CMOS_MONTH]), bcd2dec(values[CMOS_YEAR]), time);
-    serial_write(buf);
 
     return time;
 }
