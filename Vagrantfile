@@ -5,7 +5,7 @@ $script = <<-SCRIPT
 echo Starting provisioning...
 # Install qemu user mode and tappy to run
 # our TAP unit tests
-apt-get update && apt-get install -y qemu-user-static python-pip gdb
+apt-get update && apt-get install -y nasm qemu-user-static python-pip gdb
 pip install tappy tap.py
 SCRIPT
 

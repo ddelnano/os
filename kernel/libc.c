@@ -47,6 +47,9 @@ size_t vasprintf(char * buf, size_t size, char * fmt, ...)
         // TODO: Add argument width
         ++f;
         uint32_t test = 0;
+        uint32_t num_width;
+        uint32_t i;
+        char * start_pos;
         switch (*f) {
             case 's':
                 s = va_arg(args, char *);
@@ -59,11 +62,35 @@ size_t vasprintf(char * buf, size_t size, char * fmt, ...)
             case '%':
                 *c++ = '%';
                 break;
+            case 'c':
+                *c++ = (char) va_arg(args, int);
+                break;
+            case 'x':
+                test = va_arg(args, uint32_t);
+                num_width = 1;
+                i = 0xf;
+                while (test > i && i < UINT32_MAX) {
+                    i *= 0x10;
+                    i += 0xf;
+                    num_width++;
+                }
+
+                c += num_width - 1;
+                start_pos = c + 1;
+                while (num_width > 0) {
+                    unsigned int value = test / 0x10;
+                    unsigned int digit = test % 0x10;
+                    *c-- = "0123456789abcdef"[digit];
+                    test = value;
+                    num_width--;
+                }
+
+                break;
             case 'd':
                 test = va_arg(args, uint32_t); 
-                uint32_t i = 9;
+                i = 9;
                 // How many digits the number is
-                uint32_t num_width = 1;
+                num_width = 1;
                 while (test > i && i < UINT32_MAX) {
                     i *= 10;
                     i += 9;
@@ -75,7 +102,7 @@ size_t vasprintf(char * buf, size_t size, char * fmt, ...)
                 if (num_width == 12) num_width = 10;
 
                 c += num_width - 1;
-                char *start_pos = c + 1;
+                start_pos = c + 1;
                 while (num_width > 0) {
                     unsigned int value = test / 10;
                     unsigned int digit = test % 10;

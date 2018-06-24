@@ -61,6 +61,22 @@ int test_vasprintf_escapes_percent_signs()
     return strcmp(buf, expected);
 }
 
+int test_vasprintf_c_format_specifier()
+{
+    char expected = 'd';
+    char buf[1];
+    vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "%c", expected);
+    return buf[0] != expected;
+}
+
+int test_vasprintf_x_format_specifier()
+{
+    char expected[] = "ff";
+    char buf[100];
+    vasprintf(buf, sizeof(buf)/sizeof(buf[0]), "%x", 255);
+    return strcmp(buf, expected);
+}
+
 void test(testfunc test)
 {
     tests[test_count++] = test;
@@ -97,6 +113,8 @@ extern int testsuite()
     test(test_secs_of_month_feb_2018);
     test(test_secs_of_month_mar_2018);
     test(test_secs_of_year_2018);
+    test(test_vasprintf_c_format_specifier);
+    test(test_vasprintf_x_format_specifier);
 
     run();
     return 0;
